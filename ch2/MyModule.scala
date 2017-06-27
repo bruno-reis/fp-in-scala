@@ -11,7 +11,7 @@ object MyModule {
     go(n, 1)
   }
 
-  def formatResult(name: String, n: Int, f: Int => Int) = {
+  def formatResult(name: String, n: Int, f: Int => Int): String = {
     val msg = "The %s of %d is %d."
     msg.format(name, n, f(n))
   }
@@ -44,12 +44,49 @@ object MyModule {
     msg.format(x, abs(x))
   }
 
+  //exercise 2.1
+  def fib(n: Int) : Int = {
+    def loop(n: Int, acc: Int): Int = {
+      if (n == 0) 0
+      else if (n == 1) 1
+      else loop(n-1, acc) + loop(n-2, acc)
+    }
 
+    loop(n, 0)
+  }
+
+  //exercise 2.2
+  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
+    def loop(n: Int): Boolean = {
+      if (n >= as.length - 1) true
+      else if (!ordered(as(n), as(n + 1))) false
+      else loop(n + 1)
+    }
+
+    loop(0)
+  }
+
+  //exercise 2.3
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) = {
+    (a: A) => b: B => f(a,b)
+  }
+
+  //exercise 2.4
+  def uncurry[A, B, C](f: A => B => C): (A,B) => C = {
+     (a: A, b: B) =>f(a : A)(b : B)
+  }
+
+  //exercise 2.5
+  def compose[A, B, C](f: B => C, g: A => B): A => C = {
+    a: A => f(g(a))
+  }
 
   def main(args: Array[String]): Unit = {
-    println(formatResult("factoriale", 5, factorial))
+    println(formatResult("factorial", 5, factorial))
     println(formatResult("absolute value", -13, abs))
     print("findFirst('hello', ´l´) = ")
     println(findFirst(Array("h", "e", "l", "l", "o"), "l"))
+    println(isSorted(Array(1,2,3,4), (x:Int, y:Int) => x < y ))
+    println(formatResult("Fibonnaci", 10, fib))
   }
 }
