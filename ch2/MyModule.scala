@@ -44,32 +44,12 @@ object MyModule {
     msg.format(x, abs(x))
   }
 
-  //exercise 2.2
-  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
-    def loop(n: Int): Boolean = {
-      if (n >= as.length - 1) true
-      else if (ordered(as(n), as(n + 1)) == false) false
-      else loop(n + 1)
-    }
 
-    loop(0)
-  }
-
-  //exercise 2.3
-  def curry[A, B, C](f: (A, B) => C): A => (B => C) = {
-    a => b => f(a,b)
-  }
-
-  //exercise 2.4
-  def compose[A, B, C](f: B => C, g: A => B): A => C = {
-    a => f(g(a))
-  }
 
   def main(args: Array[String]): Unit = {
     println(formatResult("factoriale", 5, factorial))
     println(formatResult("absolute value", -13, abs))
     print("findFirst('hello', ´l´) = ")
     println(findFirst(Array("h", "e", "l", "l", "o"), "l"))
-    println(isSorted(Array(1,2,3,4), (x:Int, y:Int) => x < y ))
   }
 }
